@@ -1,0 +1,144 @@
+%% LyX 2.0.6 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+ % this default might be overridden by plain title style
+ \newcommand\makebeamertitle{\frame{\maketitle}}%
+ \AtBeginDocument{
+   \let\origtableofcontents=\tableofcontents
+   \def\tableofcontents{\@ifnextchar[{\origtableofcontents}{\gobbletableofcontents}}
+   \def\gobbletableofcontents#1{\origtableofcontents}
+ }
+ \def\lyxframeend{} % In case there is a superfluous frame end
+ \long\def\lyxframe#1{\@lyxframe#1\@lyxframestop}%
+ \def\@lyxframe{\@ifnextchar<{\@@lyxframe}{\@@lyxframe<*>}}%
+ \def\@@lyxframe<#1>{\@ifnextchar[{\@@@lyxframe<#1>}{\@@@lyxframe<#1>[]}}
+ \def\@@@lyxframe<#1>[{\@ifnextchar<{\@@@@@lyxframe<#1>[}{\@@@@lyxframe<#1>[<*>][}}
+ \def\@@@@@lyxframe<#1>[#2]{\@ifnextchar[{\@@@@lyxframe<#1>[#2]}{\@@@@lyxframe<#1>[#2][]}}
+ \long\def\@@@@lyxframe<#1>[#2][#3]#4\@lyxframestop#5\lyxframeend{%
+   \frame<#1>[#2][#3]{\frametitle{#4}#5}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{listings}
+\input{/accounts/gen/vis/paciorek/latex/paciorekMacros}
+\usetheme{Warsaw}
+
+\setbeamercovered{transparent}
+% or whatever (possibly just delete it)
+
+%\usecolortheme{seahorse}
+%\usecolortheme{rose}
+
+% seems to fix typewriter font in outline header:
+\usepackage{ae,aecompl}
+% or whatever (possibly just delete it)
+
+%\usecolortheme{seahorse}
+%\usecolortheme{rose}
+
+% seems to fix typewriter font in outline header:
+
+\makeatother
+
+\begin{document}
+
+
+\title[Statistical modeling of biomass increment~~~~\insertpagenumber]{Statistical modeling of biomass increment}
+
+
+\author[Chris Paciorek]{Chris Paciorek\\
+Department of Statistics; University of California, Berkeley\\
+}
+
+
+\date{June 2015}
+
+\makebeamertitle
+
+\lyxframeend{}
+
+
+\lyxframeend{}\lyxframe{Model overview}
+\begin{itemize}
+\item Modeling Lyford 13 plots plus HF census data for 1960-2013
+\item Two data sources and therefore two likelihood terms: census DBH and
+ring increment
+\item Trees not in census in a year are assumed < 5 cm dbh
+\item DBH in a year (end of season) is equal to DBH in previous year plus
+increment that year
+\item Unknown true increment assumed to come from a distribution
+
+\begin{itemize}
+\item Overall mean increment for all trees varies by year (year effect)
+\item Each tree also has a mean increment common to all years (tree effect)
+\item Can have increment vary by taxon and with tree size (random taxon
+effects + regression on size)
+\item Playing with having increment be autocorrelated over time via AR process
+\end{itemize}
+\item Account for when in a season DBH is measured by scaling relative to
+inferred seasonal growth curve
+\item Estimated increment is sum across all trees
+
+\begin{itemize}
+\item Assume no missing trees given census
+\end{itemize}
+\end{itemize}
+
+\lyxframeend{}
+
+
+\lyxframeend{}\lyxframe{Model details}
+\begin{itemize}
+\item measured log DBH assumed to follow a $t$ distribution with 3 degrees
+of freedom, centered on true log DBH
+\item log increment assumed to follow a normal distribution centered on
+true log increment, $\log X_{it}$
+\item $\log X_{it}\sim t_{\nu}(\alpha_{i}+\gamma_{t}+\beta(D_{i,t-1}-30)I(D_{i,t-1}>30),\sigma_{i}^{2})$
+(increment increases with size only for size > 30 cm)
+\item $\alpha_{i}\sim N(\alpha_{\mbox{taxon}(i)},\sigma_{\mbox{taxa}}^{2})$
+\item $\gamma_{t}\sim N(0,\sigma_{t}^{2})$
+\item Not indicated above, but also can include residual increment process
+as AR(1) process with AR parameter $\rho$, estimated in model.
+\end{itemize}
+
+\lyxframeend{}\lyxframe{Some results}
+\begin{itemize}
+\item Assessment of model fit and raw data has revealed some anomalies in
+both increment and DBH data and inconsistencies in HF and Neil/Dan's
+data; some of this resolved based on consultation with Neil/Dan
+\item Initial fits to all individual trees in Neil/Dan plots: see tree\_plots.pdf
+\end{itemize}
+
+\lyxframeend{}
+
+
+\lyxframeend{}\lyxframe{Still to be explored}
+\begin{itemize}
+\item Can we better pin down distinction between DBH error and increment
+error
+\item Increment error may be strongly autocorrelated (because of use of
+two cores only)
+\item Not clear how to incorporate long-term trends in increment (or if
+needed)
+\item Do increments decline as tree nears death?
+\item Need to deal with uncertain year of death
+\item Need to get allometry information
+\item Would be good to assess impact of not having census data - loss of
+some larger trees that are decayed and miss many small trees
+\item How get overall stand estimate from having three plots? 
+\item How incorporate info from nested rings?\end{itemize}
+
+
+\end{document}

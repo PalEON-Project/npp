@@ -1,0 +1,36 @@
+should linear spline for age be on log(X) or on X?
+autocorr in true incr
+autocorr in incr msmt error - probably hard
+dbh outliers - probably handled by t dist
+error in neil dbh?
+biomass scaling
+long-term trends (often down for smallish trees) - how deal with - linear trend? kernel-smoothed AR process on 10-year interval knots; cubic spline with few knots?
+Wishart on covar of spline coefficients to induce long-term structure? but if parameterized in terms of calendar time, we have less info as go further back...
+work on having alive/dead be random for periods in between censuses
+data issues - confer with Neil and Dan
+experiment w/ taking out dbh data except neil's and seeing if we predict dbh and total biomass increment well
+can I use census data from outside plots to estimate increment variations by size and taxa? is large incr of fagr/tsca/beal consistent with these data?
+deal w/ uncertain date of death - sometime before census in which recorded as D
+get 1962 census data
+include trees that were dead at all times in census but recorded if go back further intime - only 2 of these and both are ~13 cm dbh in 69
+include dead dbh measurements with more error and an offset?
+put in tree 307 as having neil's dbh in 2012 so can use incr data
+could all increments be systematically off - add a bias/error term for this which deals w/ one aspect of possible autocorrelation in increments - quantify this with Neil's data from different #s of cores per tree
+assess impact of excluding small trees from analysis in terms of biomass increment
+dbh obs error on log scale?
+incr obs error on log scale?
+how estimate NPP over stand given the 3 plots?
+how incorporate info from nested rings?
+does increment decrease in years just before death? - not a lot of evidence in cores as few dead cored trees but dead trees were generally growing slowly before death; need to look at dbh data too
+what paper had growth be a multiple of tree size? - could think about this - but maybe essentially same as incr being on log scale
+do I need to model mortality as related to growth so that can model when ghost trees died?
+can we do upper bound on tree size via dinterval and not dconstraint
+might also want t dist for x[i,j] process to account for very low values that occur occasionally; this may help with sig_x, sig_x_obs mixing
+any way to get at long-term autocorr in increment?  probably hard and boulder jct discussion suggested maybe it's ok not to address it
+
+* t dist for dbh error
+* 1991 was actually 3 years
+* dbh is bgin/end of grow season? -jun/jul - have prior on how much of ring is laid down - put at .2-.8 and estimate? use Audrey's dates - estimate a linearly scaled effective growing season between 4/1 and 10/1 - try logistic transformation
+* should include info that if was alive in later survey and not present in earlier, that means it was less than 5 cm observed (e.g., tree 5837) - actually there are msmts of 4.57 cm, so use 4.5 as upper bound
+* spp variability - have linear spline for age have spp-specific intercept (exchangeable) and constant slope
+* effect of age on increment - try linear spline - baseline constant plus slope at size of 25/30 cm dbh (originally was thinking to have flag for small/shade-intol taxa (i.e. indivs)?)try lin spline with spp-specific intercept and pooling of intercepts

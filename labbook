@@ -1,0 +1,149 @@
+3/3/15:
+
+a few trees (eg 2740) decrease by a few cm or more over 10 years in census
+not sure how to deal with
+
+for now model 1969 fwd only trees alive in 1969
+to go further back, take any census data of trees standing dead in 1969 and try to infer when might have been alive
+
+take latest time I see a "L" in census data and use all dbhs up until then even if there were previous "D"s (actually I'm not seeing L appear after D/SN/RB/etc.
+
+flatten dbh data
+id,yr,dbh
+
+loop over rings from start to end where start/end defined by NAs 
+assign zero to NAs on right side - have them be deterministic
+leave out NAs on left -have model infer increment back in time even if get negative dbh (can filter as a post-processing step)
+
+Xobs:
+sum over multiple cores per tree - infer 0 for NAs when some cores have data
+
+Xlatent:
+for time period when all cores are NA, have deterministic node set to zero
+
+loop over X[i,j] and for period after dies, assign zeroes
+
+Lyford metadata:  http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?id=hf032
+
+dbh is cm
+incr is .001 mm in raw Tucson files but in 1 mm units after reading in via read.tucson
+
+3/6/15:
+for now allow dbh to go negative and don't have anything that restricts dbh to be less than 5 for trees not in earlier censuses
+
+have lastDate for a tree be the year before the census in which it was D or the last year for which a ring is available
+
+adjust census data for 1991 to be 1987,1991,1992 as appropriate
+Blocks censused in 1987: SE61, SW60, SW61, SW62, SW70, SW71. Blocks censused in 1991: SE11, SE21, SE31, SE41, SE51, SW10, SW11, SW20, SW22, SW30, SW40, SW50, SW51. Blocks censused in 1992: SW00, SW01, SW21, SW31, SW32, SW33, SW34, SW41, SW42, SW43, SW44, SW52, SW53.
+
+would be nice to try truncated N for X (i.e. tobit model) but for now not using nimble_0.4 so just set lowest observed X to be min of non-zero X
+but check with Dan/Neil on likely measurement error
+
+may want to detect when suppression is so much that they can't get ring msmts (e.g. tree 325) rather than leaving as missnig data
+
+3/23/15:
+most of the anomalous dbh values from Audrey are for slow-growing trees
+
+large diffs between Audrey and Neil dbh for 2740(107) and 4800 (314) when checked against incr data suggest Neil dbh is off
+
+tree 1209 appears to have fairly large dbh error
+
+so far, I think I may want a t-dist for dbh errors and to ignore Neil's dbh
+
+there appear to be substantial time trends (often fairly linear) of either incr or decr increments
+
+acru/quru dominate and have similar incr patters as fxn of dbh but acru generally small and quru large; fagr,tsca,beal have a few small indivs that are almost all growing quickly - much more quickly than acru
+
+3/24/15:
+
+problem trees:
+2740(107) dbh discrepancy (big dbh error in audrey too)
+4800(314) dbh discrepancy
+NA(207)
+1209
+5619(307) - Neil alive , Audrey dead
+1863(202) - probably fine
+1863(227) - probably error by Neil
+2166 - big drop in dbh 75-91
+1209 - some drop in dbh 91-01
+1564 - neil didn't find RB as of 2011 and dead as of 91 - mention to Neil in terms of downed trees
+2129 - look at these again
+
+estimate for 5468,5505,5415,5437,5459,5633,5636,5651,1200(in a different way) understimates growth
+tree 1200 was measured in 1987, which is why the estimate is off (and actually the model does very well in inferring its true dbh)
+
+Neil sampling was early 2013 so dbh is dbh at end of 2012
+
+Neil has one dead tree biger than 30 cm
+
+big census trees Neil didn't catch: 1564 (dead as of 1991)
+big Neil tree not in census: 4114
+
+might model incr vs age as linear regr with spp-specific slope/ints (perhaps loglin regression?)
+ tsca definitely grows best at small size, fagr/beal perhaps better than acru
+
+maybe a linear spline with fixed knot at 30 cm - representing non-suppressed status? with spp specific intercept but maybe not slope?
+
+3/26/15
+I think the sig_x, sig_x_obs slow mixing relates to cases where increments are near zero in the midst of decent growth at other times
+
+w/ tdist on d_obs, we get weird anomaly with tree 119/5501 dbh way overestimated
+- actually not seeing this on 3/30/15
+
+4/5/15:
+IDEAS PROGRESS: current status
+
+looked at incr as fxn of dbh by spp - found that linear spline with flat intercept only to 25-30 cm dbh and then linear is preobably fine; at least the intercept varies by taxon
+
+saw a few dbh obs are way off from plausible - suggests t model
+
+incr error probably increase with incr since small incr should have small error; same true for dbh probably, so working on log scale probably makes sense
+
+incr error is probably autocorrelated
+
+incr themselves are probably autocorrelated but with spikes and troughs
+
+4/14/15:
+perry has paper on growth - models dbh error on original scale y~N(x,sig2)
+centers true size on linear function of size from previous year (no obvious monotonicity constraint...)
+http://www.esajournals.org/doi/abs/10.1890/12-0504.1
+
+4/20/15:
+Audrey says 1/1/87 blocks were done sometime in january
+
+4/21/15:
+
+add to model to allow for 1987/91/92 actual dates for 91 census and to have logistic curve relating partial season growth to dbh measurements taken at various times during growing season
+
+tree 5468 not fit well - needs to have growth go up more quickly
+
+4/22/15:
+
+adding constraint so that trees not yet in census are constrained to be <4.5 in 1969 and <5 in later years
+
+sufficient to upper bound at census times and not at all previous times because of monotonicity of D[i,j]
+
+4/23/15:
+in age effect, need to have X[i,j] depend on D[i,j-1] to avoid cycles
+
+adding X dependence on D for D>25
+
+4/24/15:
+explore.R has code to generate t-based AR processes - these look somewhat like the incr data except missing cases where there is long-term trend
+
+4/29/15:
+plots of growth vs size by spp suggest linear spline somewhat better on original rather than log scale but probably ok on log scale
+
+4/30/15:
+when use dt for logX get very large logX for time points unconstrained by data - at end of period after last dbh in 2011; should use trunc t dist, but not yet available in nimble; largest logXobs is 2.23 so might have 3 be upper bound
+
+RUNS:
+/tmp/ringModeltDateSapl.Rda has 5k MCMC 
+
+6/16/15
+all of a sudden with current NIMBLE (and with versions from last couple weeks and with 0.4-1 'version' from may) having problems:
+
+* compile MCMC takes forever and then running MCMC in C takes forever in current nimble
+* configureMCMC with taxon stuff takes forever - maybe this was occurring before?
+
+but note that it seems the first MCMC step takes a while and subsequent ones in C are fast...

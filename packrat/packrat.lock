@@ -1,0 +1,138 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.2.1
+RVersion: 3.1.2
+Repos: CRAN=http://www.cran.r-project.org,
+    BioCsoft=http://bioconductor.org/packages/2.14/bioc,
+    BioCann=http://bioconductor.org/packages/2.14/data/annotation,
+    BioCexp=http://bioconductor.org/packages/2.14/data/experiment,
+    BioCextra=http://bioconductor.org/packages/2.14/extra
+
+Package: R2WinBUGS
+Source: CRAN
+Version: 2.1-19
+Hash: 0c0590848a60dd9b8f585a1480196eac
+Requires: coda
+
+Package: R2jags
+Source: CRAN
+Version: 0.05-03
+Hash: c2d93341e3eb2f812bbc697e510d2953
+Requires: R2WinBUGS, abind, coda, rjags
+
+Package: Rcpp
+Source: CRAN
+Version: 0.11.5
+Hash: 3e452cb48f3ec8a7cf27fb9ab8624639
+
+Package: XLConnect
+Source: CRAN
+Version: 0.2-10
+Hash: 4b1182f580277a153b94d57e75f18665
+Requires: XLConnectJars, rJava
+
+Package: XLConnectJars
+Source: CRAN
+Version: 0.2-9
+Hash: 4b5b6059340c96754e6ac4077021244f
+Requires: rJava
+
+Package: XML
+Source: CRAN
+Version: 3.98-1.1
+Hash: 13746d37588e7083349177d6e8234864
+
+Package: abind
+Source: CRAN
+Version: 1.4-0
+Hash: 5007322a6d081332d1d54b077a82bdf0
+
+Package: coda
+Source: CRAN
+Version: 0.17-1
+Hash: d0d3dbce33d67bfd99404e8abc507a65
+
+Package: digest
+Source: CRAN
+Version: 0.6.8
+Hash: 89dc4c8734dad5322bb3c5c2af09056f
+
+Package: dplR
+Source: CRAN
+Version: 1.6.2
+Hash: 522fa5e00f721bb45c747dae97994628
+Requires: XML, digest, gmp, png, stringi, stringr
+
+Package: fields
+Source: CRAN
+Version: 7.1
+Hash: 9ddf8675cce79b252776782a1d85c5f9
+Requires: maps, spam
+
+Package: gmp
+Source: CRAN
+Version: 0.5-12
+Hash: 7b3e2b50df04e0491d2ee221f26d6a3f
+
+Package: igraph
+Source: CRAN
+Version: 0.7.1
+Hash: e82d8e897ee5f480edb6a68b3d949dba
+
+Package: maps
+Source: CRAN
+Version: 2.3-9
+Hash: 236a24fa187bb1f3a1694f2915597c5e
+
+Package: packrat
+Source: CRAN
+Version: 0.4.2-1
+Hash: 085f944cec9b56e8a280222b5174c76e
+
+Package: plyr
+Source: CRAN
+Version: 1.8.1
+Hash: 6a4457c04af4cf5e4a8166ff59bcfd96
+Requires: Rcpp
+
+Package: png
+Source: CRAN
+Version: 0.1-7
+Hash: 7559dcd0a9f188351986d0494ec1516d
+
+Package: rJava
+Source: CRAN
+Version: 0.9-6
+Hash: 5ea21341e7c1d6a40cdde6ef470fec92
+
+Package: reshape
+Source: CRAN
+Version: 0.8.5
+Hash: 3a8bcdf002df52627d35dfab189711f4
+Requires: plyr
+
+Package: reshape2
+Source: CRAN
+Version: 1.4.1
+Hash: d3d77b083fd5485f674487aa23011ea7
+Requires: Rcpp, plyr, stringr
+
+Package: rjags
+Source: CRAN
+Version: 3-14
+Hash: 984445b35a2ba1fca442d2ba211d895a
+Requires: coda
+
+Package: spam
+Source: CRAN
+Version: 1.0-1
+Hash: 93c30ed45a309377f3059db3c76c94df
+
+Package: stringi
+Source: CRAN
+Version: 0.4-1
+Hash: 955e96fc5961bf9f7b3ca916f9b1e606
+
+Package: stringr
+Source: CRAN
+Version: 0.6.2
+Hash: cdde0cfa0f52cffeaca23a11a3899779

@@ -1,0 +1,45 @@
+model {
+
+    # dbh likelihood
+    for(j in 1:nDBH) {
+        logDobs[j] ~ dnorm(log(D[dbh_tree_id[j], dbh_year_id[j]]), 1/sig_d_obs^2)
+    }
+
+    # increment likelihood for trees with rings
+    for(i in 1:nWidths) {
+        logXobs[i] ~ dnorm(log(X[incr_tree_id[i], incr_year_id[i]]), 1/sig_x_obs^2)
+    }
+
+    # process evolution
+    for(i in 1:n) {
+        D0[i] ~ dunif(0, 300)
+        D[i, 1] <- D0[i] + X[i, 1]/10
+        
+        for(j in 1:last_time[i]) {
+            X[i, j] ~ dlnorm(beta[i] + beta_t[j], 1/sig_x^2)
+        }
+        for(j in (last_time[i]+1):nT) {
+            # BUGS (and NIMBLE by default) should ignore if
+            # indexing is decreasing
+            X[i, j] <- 0
+        }
+        
+        for(j in 2:nT) {
+            D[i, j] <- D[i, j-1] + X[i, j]/10
+        }
+        beta[i] ~ dnorm(beta0, 1/beta_sd^2)
+         
+    }
+
+    for(j in 1:nT) {
+        beta_t[j] ~ dnorm(0, 1/beta_t_sd^2)
+    }
+
+    
+    beta0 ~ dnorm(0, .00001)
+    sig_d_obs ~ dunif(0, 1000)
+    sig_x_obs ~ dunif(0, 1000)
+    sig_x ~ dunif(0, 1000)
+    beta_sd ~ dunif(0, 1000)
+    beta_t_sd ~ dunif(0, 1000)
+}

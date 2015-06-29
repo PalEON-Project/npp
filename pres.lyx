@@ -1,0 +1,353 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+\usepackage{listings}
+\input{/accounts/gen/vis/paciorek/latex/paciorekMacros}
+\usetheme{Warsaw}
+
+\setbeamercovered{transparent}
+% or whatever (possibly just delete it)
+
+%\usecolortheme{seahorse}
+%\usecolortheme{rose}
+
+% seems to fix typewriter font in outline header:
+\usepackage{ae,aecompl}
+% or whatever (possibly just delete it)
+
+%\usecolortheme{seahorse}
+%\usecolortheme{rose}
+
+% seems to fix typewriter font in outline header:
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 2
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation landscape
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Statistical modeling of biomass increment
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+Statistical modeling of biomass increment
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+insertpagenumber
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+optional, use only with long paper titles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+\begin_inset Argument
+status collapsed
+
+\begin_layout Plain Layout
+Chris Paciorek
+\end_layout
+
+\end_inset
+
+Chris Paciorek
+\begin_inset Newline newline
+\end_inset
+
+Department of Statistics; University of California, Berkeley
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Date
+June 2015
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Model overview - data
+\end_layout
+
+\begin_layout Itemize
+Modeling Lyford 13 plots plus HF census data for 1960-2013
+\end_layout
+
+\begin_layout Itemize
+Two data sources and therefore two likelihood terms: census DBH and ring
+ increment
+\end_layout
+
+\begin_layout Itemize
+Trees not in census in a year are assumed < 5 cm dbh
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Model overview - growth process
+\end_layout
+
+\begin_layout Itemize
+DBH in a year (end of season) is equal to DBH in previous year plus increment
+ that year
+\end_layout
+
+\begin_layout Itemize
+Unknown true increment assumed to come from a distribution
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Overall mean increment for all trees varies by year (year effect)
+\end_layout
+
+\begin_layout Itemize
+Each tree also has a mean increment common to all years (tree effect)
+\end_layout
+
+\begin_layout Itemize
+Can have increment vary by taxon and with tree size (random taxon effects
+ + regression on size)
+\end_layout
+
+\begin_layout Itemize
+Playing with having increment be autocorrelated over time via AR process
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Account for when in a season DBH is measured by scaling relative to inferred
+ seasonal growth curve
+\end_layout
+
+\begin_layout Itemize
+Estimated increment is sum across all trees
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Assume no missing trees given census
+\end_layout
+
+\end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Model details
+\end_layout
+
+\begin_layout Itemize
+measured log DBH assumed to follow a 
+\begin_inset Formula $t$
+\end_inset
+
+ distribution with 3 degrees of freedom, centered on true log DBH
+\end_layout
+
+\begin_layout Itemize
+log increment assumed to follow a normal distribution centered on true log
+ increment, 
+\begin_inset Formula $\log X_{it}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\log X_{it}\sim t_{\nu}(\alpha_{i}+\gamma_{t}+\beta(D_{i,t-1}-30)I(D_{i,t-1}>30),\sigma_{i}^{2})$
+\end_inset
+
+ (increment increases with size only for size > 30 cm)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\alpha_{i}\sim N(\alpha_{\mbox{taxon}(i)},\sigma_{\mbox{taxa}}^{2})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\gamma_{t}\sim N(0,\sigma_{t}^{2})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Not indicated above, but also can include residual increment process as
+ AR(1) process with AR parameter 
+\begin_inset Formula $\rho$
+\end_inset
+
+, estimated in model.
+\end_layout
+
+\begin_layout BeginFrame
+Some results
+\end_layout
+
+\begin_layout Itemize
+Assessment of model fit and raw data has revealed some anomalies in both
+ increment and DBH data and inconsistencies in HF and Neil/Dan's data; some
+ of this resolved based on consultation with Neil/Dan
+\end_layout
+
+\begin_layout Itemize
+Initial fits to all individual trees in Neil/Dan plots: see tree_plots.pdf
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Still to be explored
+\end_layout
+
+\begin_layout Itemize
+Can we better pin down distinction between DBH error and increment error
+\end_layout
+
+\begin_layout Itemize
+Increment error may be strongly autocorrelated (because of use of two cores
+ only)
+\end_layout
+
+\begin_layout Itemize
+Not clear how to incorporate long-term trends in increment (or if needed)
+\end_layout
+
+\begin_layout Itemize
+Do increments decline as tree nears death?
+\end_layout
+
+\begin_layout Itemize
+Need to deal with uncertain year of death
+\end_layout
+
+\begin_layout Itemize
+Need to get allometry information
+\end_layout
+
+\begin_layout Itemize
+Would be good to assess impact of not having census data - loss of some
+ larger trees that are decayed and miss many small trees
+\end_layout
+
+\begin_layout Itemize
+How get overall stand estimate from having three plots? 
+\end_layout
+
+\begin_layout Itemize
+How incorporate info from nested rings?
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\end_body
+\end_document

@@ -191,7 +191,7 @@ m <- nimbleModel(body(ringModeltDateSaplTaxon),
                                        dbh_day_id = dbh_day_id, sapling_tree_id = sapling_tree_id,
                                        sapling_year_id = sapling_year_id, max_size = max_size,
                                        dbh_year_id = dbh_year_id, incr_tree_id = incr_tree_id,
-                                      incr_year_id = incr_year_id, last_time = last_time ))))
+                                      incr_year_id = incr_year_id, last_time = last_time ))
 
 
 m$setData(list(logDobs = logDobs, logXobs = logXobs, sapling_constraint = rep(1, nSaplings)))
@@ -203,16 +203,16 @@ m$setInits(list(X = matrix(1, n, nT), D0 = rep(0, n),
                  beta_spp = rep(.1, nTaxa), beta_slope = 0.01, beta_spp_sd = 0.1))
 # if start sig_x lower, sig_x_obs can get trapped high
 
-spec <- configureMCMC(m, thin = 50)))
+spec <- configureMCMC(m, thin = 50)
 #spec$samplerSpecs[[206]]$control$scale=.01
-spec$addMonitors(c('D', 'X', 'beta_t', 'beta_t_sd', 'beta_sd', 'beta_spp', 'beta_slope', 'beta_spp_sd', 'b0', 'b1' ))
+spec$addMonitors(c('D', 'X', 'beta_t', 'beta_t_sd', 'beta_sd', 'beta_spp', 'beta_slope', 'beta_spp_sd', 'b0', 'b1', 'sig_x_obs', 'sig_x', 'sig_d_obs' ))
 
-Rmcmc <- buildMCMC(spec)))
-cm <- compileNimble(m)))
-Cmcmc <- compileNimble(Rmcmc, project = m)))
+Rmcmc <- buildMCMC(spec)
+cm <- compileNimble(m)
+Cmcmc <- compileNimble(Rmcmc, project = m)
 
-Cmcmc$run(5000)))
-#Cmcmc$run(25000)))
+Cmcmc$run(5000)
+#Cmcmc$run(25000)
 
 out <- as.matrix(Cmcmc$mvSamples)
 

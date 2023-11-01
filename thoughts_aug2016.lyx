@@ -1,0 +1,613 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Some notes/thoughts on the NPP methods.
+\end_layout
+
+\begin_layout Standard
+[see also paper notes (but have looked at 4/6/17 notes]
+\end_layout
+
+\begin_layout Standard
+emphasize use for model assimilation - focus on ABI estimation at plot level;
+ concern about fading record and that we want to see if we can use data
+ w/o census data; have section on paleon design
+\end_layout
+
+\begin_layout Standard
+stat stuff: replication, when measured in year, imputation for missing trees/plo
+t-level inference, scaling up, allometric uncertainty
+\end_layout
+
+\begin_layout Standard
+our dbh errors (on cm scale) are big relative to Clark et al.
+ 2007
+\end_layout
+
+\begin_layout Standard
+Dawson, Paciorek, Dietze, McLachlan [Pederson, Dye, Woods, Bishop, Moore,
+ Barker, other HF census folks?]
+\end_layout
+
+\begin_layout Subsection*
+Importance of the fading record
+\end_layout
+
+\begin_layout Standard
+We see little evidence of the fading record in our time series since 1960
+ based on comparing model fits with and without census data included.
+ Our conclusion (I think) is that this is an aggrading (right word?) stand
+ and there has been little mortality amongst moderate-large trees so most
+ of the biomass increment is accounted for by trees with cores.
+ The influence of small trees that died before the cores could be taken
+ (or that simply were not cored) is small because of their size.
+ We should also comment on how many dead tree cores we have and if that
+ has made a difference.
+ 
+\end_layout
+
+\begin_layout Standard
+Desire to core dead trees but hard in practice.
+\end_layout
+
+\begin_layout Standard
+Mention that we project live trees back in time to before they entered the
+ measured size pool of trees.
+\end_layout
+
+\begin_layout Subsection*
+Paleon design
+\end_layout
+
+\begin_layout Standard
+An observation is a plot with multiple trees.
+ We know there is strong dependence between trees (competition, correlated
+ exogenous effects), hence we collect data and do modeling at the plot level.
+\end_layout
+
+\begin_layout Subsection*
+Some extensions
+\end_layout
+
+\begin_layout Standard
+One might use census data to better inform:
+\end_layout
+
+\begin_layout Itemize
+relationship of growth with whether a tree dies in subsequent years (bias
+ from inferring average growth regardless of tree status); otherwise our
+ only data on this comes from the few dead trees with cores (and note that
+ rings for years closest to death most likely to be degraded)
+\end_layout
+
+\begin_layout Itemize
+better estimation of population (prior) distribution of growth for trees
+ by species and size
+\end_layout
+
+\begin_layout Itemize
+other population (prior) distributions that might be of use?
+\end_layout
+
+\begin_layout Itemize
+use in scaling up by estimating the spatial heterogeneity of a relevant
+ variable across the full census region.
+ For example we can estimate variance of AGB across Paleon-size plots within
+ the spatial area in which the plots are located.
+ This might then substitute for the plot effect variance term, whose estimation
+ is difficult with only three plots per site.
+ For ABI, it's not as clear as we can't get that directly from the census
+ data.
+ 
+\end_layout
+
+\begin_layout Standard
+Not suggesting we do all this for the paper, just some brainstorming that
+ might be discussed in the Discussion.
+\end_layout
+
+\begin_layout Subsection*
+Allometric uncertainty
+\end_layout
+
+\begin_layout Standard
+Trees within a small area should be assigned the same site effect when the
+ allometric hierarchical model includes a site random effect.
+ For a given tree we should use the same tree random effect at different
+ times.
+\end_layout
+
+\begin_layout Standard
+To what extent does the Pecan allometry model provide site vs.
+ tree effects? Are we mimicing this by simple random selection from a set
+ of tree-specific allometries? We only want separate trees to share the
+ same effect to the extent that there are site/geographic variations.
+ Is geography/region simply a proxy for site in the Pecan allometry modeling?
+\end_layout
+
+\begin_layout Standard
+Are we simply doing multiple runs, each with different allometric sampling?
+\end_layout
+
+\begin_layout Subsection*
+Scaling up
+\end_layout
+
+\begin_layout Standard
+Not clear how important this is to the modelers.
+ We might be able to just pass along the individual plot estimates and the
+ modelers can treat them as small area estimates against which to calibrate
+ the model (somehow).
+\end_layout
+
+\begin_layout Standard
+However, for ecological analysis and synthesis of results across sites (as
+ we've discussed for a synthesis paper), we presumably want an estimate
+ we think pertains to an area larger than simply the three plots.
+\end_layout
+
+\begin_layout Standard
+At a basic level, we can think of empirically estimating a between-plot
+ variance in ABI based on the three plots.
+ This can then be used to infer how different the average of the three plots
+ is from an average taken over an entire stand/forest (however defined).
+ Alternatively, with plot effects in the statistical model, we can use the
+ estimate of the plot effect variance for scaling up.
+ The latter is probably best.
+ That said, current modeling seems to indicate that there is little plot
+ effect.
+ 
+\end_layout
+
+\begin_layout Standard
+Perhaps in the data product we report the simple average of the three plots
+ with the 
+\begin_inset Quotes eld
+\end_inset
+
+finite-population
+\begin_inset Quotes erd
+\end_inset
+
+ variance of that average indicating the uncertainty in ABI within the area
+ of the three plots.
+ Then we could also report a 
+\begin_inset Quotes eld
+\end_inset
+
+super-population
+\begin_inset Quotes erd
+\end_inset
+
+ variance indicating uncertainty if we scale up to a larger area (of course
+ the point estimate remains the same unless there is some sort of adjustment
+ made based on information that the three plots are different in some way
+ from the stand as a whole).
+\end_layout
+
+\begin_layout Subsection*
+Accounting for dependence
+\end_layout
+
+\begin_layout Standard
+The increment error variance and the increment process variance parameters
+ trade off in models such as the one above and related models such as Clark
+ et al.
+ (2007).
+ This makes sense - year to year variation in increments could be explained
+ statistically either as error in increments or true variability in increments
+ from year to year.
+ To address such identifiability issues, Clark et al.
+ chose to constrain the priors on the increment and dbh error variance using
+ information on these errors from replicated data to construct informed
+ priors.
+ We take the approach of directly using the replicates in the model.
+ However directly modeling individual increments rather than average increment
+ raises the question of correlation in error between increments.
+ 
+\end_layout
+
+\begin_layout Standard
+[summary - we avoid informative priors but don't expect to learn a lot about
+ certain parameters because of identifiability issues - we constrain covariance
+ and allow replication to tell us about variance in light of this, but only
+ difference of variance and covariance directly identified from sufficient
+ statistics in the data.
+ In principle dbh data could help additionally constrain by comparing increment
+ + previous dbh with current dbh but errors in dbh measurement and lack
+ of yearly data degrade this additional constraint.]
+\end_layout
+
+\begin_layout Standard
+The identifiability story is:
+\end_layout
+
+\begin_layout Enumerate
+need measurement unc.
+ vs.
+ process variability to properly characterize uncertainty in ABI - how much
+ does it vary year to year?
+\end_layout
+
+\begin_layout Enumerate
+replication in cores can help us characterize process variability -- unless
+ errors across cores are highly positively correlated and variance is large
+ (which would I think be ruled out by increment data matching census) then
+ the variability from year to year is probably mostly process
+\end_layout
+
+\begin_layout Enumerate
+however core data are not uncorrelated - at the very least because truth
+ is the integral, so an 'error' at one core must be balanced by errors elsewhere
+ (basically a sum constraint)
+\end_layout
+
+\begin_layout Enumerate
+correlation probably varies by angle, so even having three cores won't fully
+ get at mean, variance, covariance (and we don't always know the angles)
+\end_layout
+
+\begin_layout Enumerate
+by differencing we can remove mean effect and isolate variance+covariance;
+ can possibly use this as a constraint; but still have non-identifiability
+\end_layout
+
+\begin_layout Enumerate
+census data can help constrain the mean effect and could help infer positive
+ covariance if census and cores disagree (but note temporal correlation
+ in error not accounted for)
+\end_layout
+
+\begin_layout Enumerate
+at least having positive corr allowed for allows the truth to be systematically
+ different than the mean increment, though we don't model the temporal autocorre
+lation; but if we have a tree effect can that stand in for the autocorr?
+ only if we interpret it as error, which I don't think we are; could we
+ add a tree-level error random effect? if we do, how identify its variance
+ relative to dbh error?
+\end_layout
+
+\begin_layout Enumerate
+alternatively think of the 'tree' as a pseudo-tree represented by its cores;
+ if those cores were elsewhere on the tree, we'd get a different ABI but
+ the cores do represent growth for a part of the tree; the difference relative
+ to full tree is in some sense just reflected in the tree to tree variability
+ around the plot; except that DBH is for the true tree; if we did use notion
+ of a pseudo-tree than by definition I think the separate cores are conditionall
+y independent given their pseudo-tree effect
+\end_layout
+
+\begin_layout Enumerate
+census-core match consistent with (a) nopositive core correlation or with
+ positive core correlation but no temporal corr; (b) census-core mismatch
+ consistent the positive core and temporal correlation; but in (a) we don't
+ really believe in no temporal corr so must not have pos core correlation;
+ but we're not modeling temporal corr so model is not constrained in that
+ way
+\end_layout
+
+\begin_layout Enumerate
+just model cores as independent? discuss why they are not but say can't
+ disentangle covariance, variance, temporal corr in incr error and dbh error?;
+ say that replication and census allow us to get better handle on incr error
+ vs process variability
+\end_layout
+
+\begin_layout Enumerate
+in order to have process var be low and incr error be high (given we see
+ big year-to-year changes) if replicates show similar behavior, we'd need
+ big positive corr in incr error and big incr error variance; and we'd need
+ to have the errors in different years bounce around a lot; this seems unlikely;
+ our model does allow for this (in fact we don't enforce temporal autocorrelatio
+n) but not favored by data; our model does allow pos corr though lack of
+ temporal correlation disfavors systematic offset of avg increment from
+ truth
+\end_layout
+
+\begin_layout Standard
+[side comment: Mike says they see the ring error/ring variability trading
+ off that we do and live with it to some extent and also set fairly tight
+ prior on the ring error]
+\end_layout
+
+\begin_layout Standard
+We need to constrain the observation error because it is an important part
+ of the uncertainty estimation for ABI.
+ Having replicated cores allows us to estimate the observation error (assuming
+ independent errors across cores), whereas if we only have one core, it
+ is hard to distinguish observation error from process variability and the
+ relative importance of the components plays out as different levels of
+ uncertainty in the estimates of ABI.
+ By observation error we mean the difference between the true radially-integrate
+d increment and the observed increment from one or more cores.
+ However, because the increments around the tree must integrate to the true
+ increment (inducing negative dependence) and because we expect correlation
+ as a function of angle between the cores, we cannot assume independent
+ increments.
+ If two cores at a given angle are positively correlated then there is higher
+ probability that both increment measurements are lower or higher than the
+ true increment, i.e.
+ that the measurements do not bracket the truth (more so than with independent
+ error), and variance of the average is inflated.
+ If the two cores are negatively correlated then the two increment measurements
+ are more likely to bracket the true increment and the variance of the average
+ is smaller than the variance of an average of independent measurements.
+ 
+\end_layout
+
+\begin_layout Standard
+In general, if the correlation is negative, that implies smaller measurement
+ variance and larger process variability while if the correlation is positive
+ that implies larger measurement variance and smaller process variability.
+ 
+\end_layout
+
+\begin_layout Standard
+Given dispersed cores we expect zero or negative correlation, while if cores
+ were placed at less than 90 degrees we would expect positive correlation.
+ This suggests that a model that constrains correlations to be zero or negative
+ may be reasonable.
+ It will be difficult to estimate a complicated model with correlation varying
+ by angle in part because for many trees we do not know the angles, so we
+ will focus on assuming a constant covariance between any two cores.
+\end_layout
+
+\begin_layout Standard
+We could simply fit the model with a measurement error covariance.
+ Unfortunately, adding an unknown covariance into a model with replication
+ re-introduces non-identifiability as the model tries to estimate both the
+ variance and covariance from the across-core variability.
+ We may be able to explore plausible covariance values in light of our prior
+ understanding of the problem.
+ To do so, we consider an approach to isolate the variance and covariance
+ and avoid having to estimate the mean for each tree by time.
+ If we knew the true mean, then we could use two (or three) measurements
+ to estimate both variance and covariance, but without the mean we lose
+ a degree of freedom.
+ [need to make language here more precise and more clear] We can consider
+ estimation based on differences of measurements as differencing removes
+ the unknown mean for the tree.
+ We can then write down the variance of the difference and relate that to
+ the variance and covariance, allowing us to estimate a linear combination
+ of those two quantities based on the method of moments.
+ We can do this for different angles between cores and comparing two vs
+ three-core trees.
+ Combined with understanding of how cores are placed on a tree, we can explore
+ plausible covariance values.
+ 
+\end_layout
+
+\begin_layout Standard
+Note that if we thought we had a reasonable model, the information from
+ the method of moments should already be captured in the likelihood.
+ However, given the complexity of the model and different sources of data,
+ imposing the constraint on the linear combination allows us to inform the
+ variance/covariance linear combination directly without the trading off
+ that can go on in the full parameter estimation.
+ It is cheating a bit in the sense that we use the data twice, but it could
+ be worthwhile, particularly if the estimation without the constraint gives
+ an estimate of the constraint quantity very different from what we estimate
+ with method of moments.
+ 
+\end_layout
+
+\begin_layout Standard
+However, rather than imposing the constraint in the model, we can instead
+ use the constraint as a check on the posterior.
+ If the posterior doesn't obey the constraint (perhaps because the model
+ learns only indirectly about the hyperparameters), we may wish to simply
+ impose a constraint that the covariance is negative since the model thinks
+ the measurement variance is small but seems to overestimate the covariance.
+ Our estimate of the constraint based on the method of moments probably
+ implies negative covariance and small variance; otherwise we need to believe
+ positive covariance and larger variance.
+ 
+\end_layout
+
+\begin_layout Standard
+The field sampling was designed to place cores sufficiently far apart radially
+ to capture different growth patterns (e.g., 90 degrees).
+ This suggests either little correlation or perhaps negative correlation.
+ Negative correlation implies less marginal variance as high marginal variance
+ means the obs tend to be far from the true mean.
+ Consider that the variance of the contrast of replicates is half the marginal
+ variance minus the covariance.
+ So for a given degree of variability amongst replicates, this can occur
+ either with high variance and high positive covariance or lower variance
+ and either zero or negative covariance (which goes along with even lower
+ variance).
+ 
+\end_layout
+
+\begin_layout Standard
+Positive error temporal correlation allows for mismatch.
+ To degree there is mismatch, if don't have that temporal correlation it
+ will push the core correlation up to allow mismatch even in face of temporal
+ averaging out.
+\end_layout
+
+\begin_layout Standard
+Some match of dbh and increment should assure the model that correlation
+ can't be too positive
+\end_layout
+
+\begin_layout Standard
+[what about outliers affecting our estimation of variances?]
+\end_layout
+
+\begin_layout Standard
+[we should see how much the size of the ring observation error affects uncertain
+ty in the quantities we care about]
+\end_layout
+
+\begin_layout Standard
+From census data, we have an independent estimate of true increment (i.e.,
+ the mean), albeit aggregated over multiple years.
+ The hope is that this information then allows us to estimate both variance
+ and covariance.
+ E.g., if sum over years of core-based increment isn't consistent with census,
+ that suggests positively-correlated increment error; but complication is
+ the correlation of the increment error over time.
+ Presumably this is positive and could account for mismatch? I think one
+ needs both positive core correlation and positive time correlation to give
+ a systematic offset of cores vs census.
+ If just have positive core correlation, then the year to year errors should
+ average out.
+ If don't have positive core correlation then each year's average should
+ not be systematically different than truth, and again the year to year
+ errors should average out.
+\end_layout
+
+\begin_layout Standard
+We are way of overinterpreting the apparent information in the posterior
+ relative to the prior or the scientific implications of the posteriors
+ given the identifiability concerns and the emergence of the posterior based
+ on simultaneous estimation and trading off of various variance terms for
+ both core and dbh data and the variety of error and process variances fit
+ in the model, and likely sensitivity to model structure and likely shortcomings
+ of the model (e.g., lack of temporal correlation in the ring width errors
+ over time).
+\end_layout
+
+\begin_layout Subsection*
+Issues to discuss
+\end_layout
+
+\begin_layout Standard
+mortality-growth
+\end_layout
+
+\begin_layout Standard
+does msmt error uncertainty matter
+\end_layout
+
+\begin_layout Standard
+correlation in ring msmt error over time - how account for this?
+\end_layout
+
+\begin_layout Section*
+Old notes
+\end_layout
+
+\begin_layout Standard
+dependence not working w/o dbh data
+\end_layout
+
+\begin_layout Standard
+npp thinking:
+\end_layout
+
+\begin_layout Standard
+sig_x_obs constrained by dbh data becuase summed increment should
+\end_layout
+
+\begin_layout Standard
+equal dbh change; but aggregated data can't tell what is sig_x_obs
+\end_layout
+
+\begin_layout Standard
+distinguished from fact that sig_x_obs is correlated across years
+\end_layout
+
+\begin_layout Standard
+no dbh data means even less ability to constrain sig_x_obs
+\end_layout
+
+\begin_layout Standard
+if have replicates then within-year variability tells us about
+\end_layout
+
+\begin_layout Standard
+sig_x_obs, but there is non-zero covariance and we need to estimate
+\end_layout
+
+\begin_layout Standard
+that too; 3 cores may be critical because otherwise only have 2df
+\end_layout
+
+\begin_layout Standard
+and 2 parameters
+\end_layout
+
+\begin_layout Standard
+still a concern that we don't accoutn for temporal correlation (high)
+\end_layout
+
+\begin_layout Standard
+of errors but perhaps that only affects overall level and the pattern of
+\end_layout
+
+\begin_layout Standard
+wiggles is still useful
+\end_layout
+
+\end_body
+\end_document
